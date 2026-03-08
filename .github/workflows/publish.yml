@@ -1,18 +1,16 @@
 name: Publish to Dev.to
 
 on:
-  pull_request:
-    types: [closed]
+  push:
     branches:
-#      - main
-      - test-workflow  # ← テスト用ブランチも追加
+#     - main
+      - test-workflow
     paths:
       - 'posts/**.md' # Trigger workflow when markdown files in the posts directory change
 
 jobs:
   publish:
     runs-on: ubuntu-latest
-    if: github.event.pull_request.merged == true
     permissions:
       contents: write # Required to commit the generated ID back to the repository
     
@@ -28,7 +26,7 @@ jobs:
         id: changed-files
         uses: tj-actions/changed-files@v47
         with:
-          files: posts/*.md
+          files: posts/**/*.md
 
       # Only run this step if there are actually changed markdown files
       - name: Publish Articles
@@ -46,4 +44,4 @@ jobs:
         uses: stefanzweifel/git-auto-commit-action@v7
         with:
           commit_message: "chore: update Dev.to article IDs [skip ci]"
-          file_pattern: 'posts/*.md'
+          file_pattern: 'posts/**/*.md'
