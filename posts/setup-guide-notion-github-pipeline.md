@@ -24,7 +24,8 @@ A system where you:
 - Notion account (free tier works)
 - GitHub account (free tier works)
 - Claude.ai account with Notion MCP enabled
-- 15-20 minutes for initial setup
+- Docker installed (for GitHub MCP server)
+- 20-30 minutes for initial setup
 
 ## Step 1: Create Notion Database (2 minutes)
 
@@ -77,15 +78,56 @@ Claude needs permission to create branches, commit files, and open PRs on your b
 
 Treat this token like a password. Anyone with this token can access your repositories.
 
-## Step 4: Configure Claude MCP Settings (3 minutes)
+## Step 4: Configure MCP Servers (5-10 minutes)
+
+### 4a. Enable Notion MCP
 
 1. Open Claude.ai
-2. Go to Settings → Integrations (or similar)
-3. Find GitHub integration
-4. Paste your Personal Access Token
-5. Save
+2. Go to Settings → Features
+3. Enable "Notion" integration
+4. Follow the prompts to connect your Notion workspace
 
-**Screenshot placeholder**: [Claude MCP settings]
+### 4b. Configure GitHub MCP Server
+
+**Important**: This requires editing a configuration file.
+
+1. **Locate your Claude configuration file:**
+   - **macOS**: `~/Library/Application Support/Claude/claude_desktop_config.json`
+   - **Windows**: `%APPDATA%\Claude\claude_desktop_config.json`
+   - **Linux**: `~/.config/Claude/claude_desktop_config.json`
+
+2. **Edit the configuration file** and add the GitHub MCP server:
+
+```json
+{
+  "mcpServers": {
+    "github": {
+      "command": "docker",
+      "args": [
+        "run",
+        "-i",
+        "--rm",
+        "-e",
+        "GITHUB_PERSONAL_ACCESS_TOKEN",
+        "ghcr.io/github/github-mcp-server"
+      ],
+      "env": {
+        "GITHUB_PERSONAL_ACCESS_TOKEN": "YOUR_GITHUB_PAT_HERE"
+      }
+    }
+  }
+}
+```
+
+3. **Replace `YOUR_GITHUB_PAT_HERE`** with the Personal Access Token you generated in Step 3
+
+4. **Save the file**
+
+5. **Restart Claude** (quit and reopen the app)
+
+**Note**: This configuration uses Docker. Make sure Docker is installed and running on your system.
+
+**Screenshot placeholder**: [Configuration file example]
 
 ## Step 5: Test the Connection (2 minutes)
 
@@ -120,6 +162,11 @@ If this works, **you're done!** 🎉
 - Use a different branch name
 - Or delete the existing branch in GitHub
 
+### "MCP server not found"
+- Make sure Docker is running
+- Check the configuration file syntax (valid JSON)
+- Restart Claude after editing the config file
+
 ## Next Steps
 
 Once setup is complete:
@@ -143,6 +190,9 @@ A: The same workflow works - just point to different publishing APIs.
 
 **Q: Is my content secure?**  
 A: Your Notion content stays in Notion. GitHub repos can be private. Claude doesn't store your content.
+
+**Q: Do I need Docker?**  
+A: Yes, the GitHub MCP server runs in a Docker container. Make sure Docker Desktop is installed and running.
 
 ## Support
 
