@@ -2,14 +2,28 @@
 id: 3330572
 title: "Zero-Friction Publishing: A Human-in-the-Loop Agentic CMS powered by Notion MCP"
 published: false
-description: Discover how to build a zero-friction, human-in-the-loop publishing pipeline. Turn Notion into an AI-powered Headless CMS using Notion MCP and GitHub.
-tags: devchallenge, notionchallenge, mcp, ai
-canonical_url: 
+description: "Discover how to build a zero-friction, human-in-the-loop publishing pipeline. Turn Notion into an AI-powered Headless CMS using Notion MCP and GitHub."
+tags: ["devchallenge", "notionchallenge", "mcp", "ai"]
+organization_username: ""
+canonical_url: ""
+cover_image: "https://dev-to-uploads.s3.amazonaws.com/uploads/articles/5lldnomk3p2s30rfymva.png"
 ---
 
 *This is a submission for the [Notion MCP Challenge](https://dev.to/challenges/notion-2026-03-04)*
 
 ## What I Built
+
+> **Me:** I intend to submit to the Notion MCP challenge. Will the workflow below be a good application?
+>
+> **Claude:** This is a strong submission concept! Let me break down how it stacks up against the judging criteria...
+>
+> **Me:** Can you draft my submission using the template below and store it to the Notion database using the filename `notion-mcp-challenge.md`?
+>
+> **Claude:** First, let me search for the publishing database in your Notion workspace to store this in...
+> *(Claude uses Notion MCP to connect to the database)*
+> Done! The initial draft has been saved directly to your Notion CMS.
+
+This actual conversation is how this entire project—and the very article you are reading—started. 
 
 While AI can generate content instantly, maintaining high quality, personal voice, and strict formatting requires a "Human-in-the-loop" approach. I built a **Zero-Friction Agentic Publishing Pipeline** that turns Notion into a collaborative Headless CMS between a human creator and an AI orchestrator. 
 
@@ -17,68 +31,7 @@ Instead of juggling multiple tabs, manually converting formats, or dealing with 
 
 Here is the architecture of the workflow we established:
 
-```mermaid
-graph TD
-    %% --- Node Definitions ---
-    Input(("You: Director"))
-    Claude["Claude Sonnet 4.5: Orchestrator"]
-    Notion[("Notion: Structured CMS")]
-    Author(("You: Editor"))
-    GitHub{{"GitHub: Version Control"}}
-    User(("You: Final Approver"))
-    devto(("dev.to: Live"))
-    
-    %% --- Legend ---
-    subgraph Legend_Box [Legend]
-        L1["🟧 Thick Orange Line: External System Operation via MCP"]
-    end
-    style L1 fill:#ffffff,stroke:none,color:#333,rx:5,ry:5
-    
-    %% --- Subgraphs ---
-    subgraph CMS_Phase ["CMS & Human Edit"]
-        Author
-        Notion
-    end
-
-    subgraph Notion_Structure ["Notion Database Schema (Conceptual)"]
-        direction LR
-        Prop1[title]
-        Prop2[Content]
-        Prop3[filename]
-    end
-
-    %% --- Connections ---
-    %% 0. Input (Index 0)
-    Input == "1. Convey Intent (Natural Language)" ==> Claude
-    
-    %% [MCP Connections] Index 1, 2, 3
-    Claude == "2. Save Initial Draft" ==> Notion
-    Notion == "4. Fetch Edited Content" ==> Claude
-    Claude == "6. Create PR" ==> GitHub
-    
-    %% [Other Connections]
-    Author -- "3. Refine & Polish Draft" --> Notion
-    Claude -- "5. Transform to MD + YAML" --> Claude
-    User -- "8. Merge (The 'Publish' Signal)" --> GitHub
-    GitHub -- "7. Review PR (Diff Check)" --> User
-    GitHub -- "9. Actions (Triggered by Merge)" --> devto
-    
-    %% [Schema Connections]
-    Prop1 --- Prop2
-    Prop2 --- Prop3
-    Notion -.-> Prop1
-
-    %% --- Styles ---
-    classDef claudeStyle fill:#e6e6fa,stroke:#7b68ee,stroke-width:2px,color:#333;
-    class Claude claudeStyle;
-
-    %% Highlight MCP access
-    linkStyle 1 stroke:#ff964f,stroke-width:6px;
-    linkStyle 2 stroke:#ff964f,stroke-width:6px;
-    linkStyle 3 stroke:#ff964f,stroke-width:6px;
-
-
-```
+![Workflow Overview](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/3jab950a9d31kvn8jws2.png)
 
 **The Process:**
 
@@ -86,51 +39,47 @@ graph TD
 2. **Drafting Phase:** The AI orchestrator generates the initial draft and saves it directly to a structured Notion database (mapping properties like `title`, `filename`, and metadata) using Notion MCP.
 3. **Refinement Phase (Human-in-the-loop):** I jump into Notion—the best UI for writing—and refine the draft, adding my personal touch.
 4. **Publishing Pipeline:** I tell the AI to finalize it. It fetches the updated content from Notion via MCP, transforms it into Markdown with YAML frontmatter internally, and creates a Pull Request on GitHub.
-5. **Approval:** I review the PR diff and hit merge, triggering GitHub Actions to deploy the article live to dev.to.
+5. **Approval:** I review the PR diff and hit merge, triggering GitHub Actions to deploy the article live to [dev.to](http://dev.to).
 
 ## Video Demo
 
-[https://youtu.be/xAelmJ6MLMs](https://youtu.be/xAelmJ6MLMs)
+{% youtube xAelmJ6MLMs %}
 
 This short presentation (generated via NotebookLM based on my initial drafts) explains the philosophy behind this setup. As highlighted in the video, this is **Conversation-driven development**. You will see how I can orchestrate a complex Notion-to-GitHub pipeline without writing a single line of traditional code—relying entirely on the system architecture (the Mermaid diagram) and natural language prompts.
 
 ## Show us the code
 
-The absolute beauty of this Agentic Workflow is that it requires **zero traditional middleware code**. By leveraging standard MCP servers, the "code" shifts from writing brittle API wrappers to defining architecture, schemas, and configurations.
+The absolute beauty of this Agentic Workflow is that it requires **zero traditional middleware code**. By leveraging standard MCP servers, the "code" shifts from writing brittle API wrappers to defining CI/CD pipelines and database schemas.
 
-This is the ultimate low-friction setup. Here is the "code" that runs the system:
+**1. The Repository & CI/CD Pipeline**
 
-**1. Architecture as Code (Mermaid)**
+The GitHub repository is the central hub where the AI and I collaborate. 
 
-The Mermaid diagram in the section above *is* the core logic and source of truth for this workflow. It defines the exact boundaries between AI automation and human intervention.
+- **AI Opens PRs:** Claude, via the GitHub MCP server, dynamically opens Pull Requests and pushes updates based on the Notion drafts.
+- **Human Approval:** I review the Markdown and YAML frontmatter in the PR diff. This is the crucial "Human-in-the-loop" checkpoint.
+- **Automated Deployment:** Once I hit "Merge", a GitHub Action automatically triggers and publishes the article to [dev.to](http://dev.to). 
 
-**2. MCP Client Configuration (JSON)**
+You can explore the actual repository powering this workflow here:
+👉 [https://github.com/tinyalg/notion-mcp-challenge](https://github.com/tinyalg/notion-mcp-challenge)
 
-Instead of writing a custom integration, I simply configured my AI client to connect to the Notion and GitHub MCP servers.
+**2. The Notion Schema (The "Data Model" for Frontmatter)**
 
-**3. The Notion Schema (The "Data Model")**
+When Claude opens a Pull Request, it extracts the draft from Notion and transforms it into a standard Markdown file. During this process, it generates the YAML frontmatter using the exact properties stored in the Notion database. 
 
-The foundation that allows the AI to act predictably. Each property maps to a critical part of the GitHub/dev.to workflow:
+This strict schema is the secret sauce that allows the AI to act predictably:
 
-*(💡 Note: Upload and insert your screenshot of the Notion properties here: **`![Notion Database Schema](...)`**)*
+![Notion Schema](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/ja6ct9klj4y5xx9ovoyo.png)
 
 - **`title`**: The main headline of your post.
 - **`published`**: A boolean to control visibility.
-- **`description`**: Used for SEO and dev.to's summary.
+- **`description`**: Used for SEO and [dev.to](http://dev.to)'s summary.
 - **`tags`**: Automates categorization.
-- **`organization_username`**: Allows publishing under a specific dev.to organization.
+- **`organization_username`**: Allows publishing under a specific [dev.to](http://dev.to) organization when GitHub workflow uses the [Publish to Dev.to Organization Action](https://github.com/marketplace/actions/publish-to-dev-to-organization).
 - **`canonical_url`**: Maintains SEO integrity for cross-posted content.
 - **`cover_image`**: Managed via URL to handle article headers.
 - **`filename`**: The exact ID for the `.md` file in the GitHub repo.
 - **`github_branch`**: Tells the AI which branch to target for the PR.
 - **`Content`**: (The page body) The shared canvas for AI generation and human editing.
-
-**4. Natural Language as Code (Prompts)**
-
-In an Agentic Workflow, prompt engineering replaces scripting. The "execution" happens through plain English commands:
-
-- **To Draft:** *"Initialize a blog post about \[Topic\] in Notion. Set the title and filename, then generate an outline in the page body."*
-- **To Publish:** *"Retrieve the edited content from Notion via MCP (filename: \[filename\]). Convert it to a Markdown file with YAML frontmatter, then create a Pull Request in this repository targeting the \[github_branch\]."*
 
 ## How I Used Notion MCP
 
@@ -145,8 +94,10 @@ This integration completely eliminates "context switching" and "cognitive load."
 
 ---
 
-### 💎 Proof of Concept: Dogfooding
+### The Reality of "Conversation-Driven Deployment"
 
-The very article you are reading right now was orchestrated, formatted, and submitted to GitHub using this exact Notion-to-GitHub pipeline.
+During the final testing phase, I encountered a classic LLM limitation: the AI occasionally struggled to construct perfectly escaped JSON payloads for the GitHub PR, or it tried to push files without cutting a new Git branch first.
 
-*"The best proof of a system is using it to build itself."*
+In a traditional scripted pipeline, this would cause a fatal crash. But in an Agentic Workflow, this is simply another conversation. By prompting the AI with, *"Check your JSON escaping and try again,"* or *"Make sure to cut a branch first,"* it successfully self-corrected and finalized the Pull Request. 
+
+This proved the core thesis of this project: **Conversation doesn't stop at content creation.** The "Human-in-the-loop" aspect is just as crucial for steering the DevOps and deployment processes. We aren't just writing with AI; we are orchestrating systems with it through dialogue.
