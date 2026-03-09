@@ -104,7 +104,7 @@ You're not removed from the process—**you're elevated above the infrastructure
 
 The system includes a GitHub Actions workflow that automatically publishes articles to dev.to when PRs are merged:
 
-- ✅ **Automatic publishing** - Merging to `test-workflow` branch triggers publication
+- ✅ **Automatic publishing** - Merging to `main` branch triggers publication
 - ✅ **Article ID tracking** - Published article IDs are written back to the Markdown files
 - ✅ **Selective publishing** - Only changed files in `posts/` directory are processed
 - ✅ **Dry run mode** - Test the workflow before actual publication
