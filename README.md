@@ -4,7 +4,7 @@ This is the exact repository where I approved my own submission for the Notion M
 
 Before hitting merge, the workflow started with this simple conversation:
 
-> **Me:** Fetch the draft with the `filename` "notion-mcp-challenge" from the Notion database. Then, create a PR targeting `main`, using the branch name specified in its `github_branch` property.
+> **Me:** Fetch and convert to markdown the draft with the `filename` "notion-mcp-challenge.md" from the Notion database. Then, use the python script for converting markdown to JSON payload.  Finally, create a PR targeting `main`, using the branch name specified in its `github_branch` property.  
 > 
 > **Claude:** Got it. Let me read the properties via Notion MCP. I'll format the content with YAML frontmatter, create the branch you specified, and open a Pull Request for you.
 
