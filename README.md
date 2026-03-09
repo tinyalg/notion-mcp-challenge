@@ -35,9 +35,9 @@ graph TD
 
     subgraph Notion_Structure ["Notion Database Schema (Conceptual)"]
         direction LR
-        Prop1[Title]
+        Prop1[title]
         Prop2[Content]
-        Prop3[Slug]
+        Prop3[filename]
     end
 
     %% --- Connections ---
@@ -59,7 +59,7 @@ graph TD
     %% [Schema Connections]
     Prop1 --- Prop2
     Prop2 --- Prop3
-    Notion -.-> Notion_Structure
+    Notion -.-> Prop1
 
     %% --- Styles ---
     classDef claudeStyle fill:#e6e6fa,stroke:#7b68ee,stroke-width:2px,color:#333;
