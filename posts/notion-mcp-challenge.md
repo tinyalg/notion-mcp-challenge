@@ -86,6 +86,16 @@ You're not removed from the process—**you're elevated above the infrastructure
 
 **Notion as Single Source of Truth**: All content editing happens in Notion. GitHub serves as version control and publication staging, not as an editing environment. This keeps the workflow simple and prevents synchronization conflicts.
 
+**Why GitHub as an intermediary?** You might wonder: why not publish directly from Notion to dev.to using the Forem API? Here's why GitHub matters:
+
+1. **Version control = Safety net**: GitHub serves as a backup. If something goes wrong with Notion (accidental deletion, formatting issues, or even AI mistakes), you can always restore from GitHub's commit history.
+
+2. **Quality gate**: The PR review step catches errors before they go live. Publishing directly would push mistakes immediately—PR review gives you a checkpoint.
+
+3. **Multi-platform foundation**: GitHub creates a platform-agnostic markdown format. The same files can publish to dev.to, Hashnode, Medium, or Zenn without rewriting the workflow.
+
+4. **Team collaboration**: Multiple people can review and approve content before publication, with comments and feedback tracked in the PR.
+
 **Manual sync when needed**: If you make quick fixes directly in GitHub (typos, formatting), you can manually copy-paste back to Notion when needed (Cmd+A, Cmd+C, Cmd+V). This is simpler and more reliable than automated bidirectional sync.
 
 ### 6. Automated Publishing (Already Implemented!)
