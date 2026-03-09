@@ -1,10 +1,16 @@
 # Zero-Friction Publishing: A Human-in-the-Loop Agentic CMS powered by Notion MCP
 
-This repository contains the architecture and configuration for a **Zero-Friction Publishing Pipeline** powered by **Notion MCP**. 
+This is the exact repository where I approved my own submission for the Notion MCP challenge, triggering a GitHub Actions workflow that automatically published it to dev.to. 
 
-Traditionally, connecting a CMS to a deployment pipeline required hundreds of lines of "glue code." By leveraging the **Model Context Protocol (MCP)**, this project replaces brittle scripts with a robust, AI-orchestrated workflow where **Human-in-the-Loop** design ensures high-quality content delivery.
+Before hitting merge, the workflow started with this simple conversation:
 
----
+> **Me:** Fetch the draft with the `filename` "notion-mcp-challenge" from the Notion database. Then, create a PR targeting `main`, using the branch name specified in its `github_branch` property.
+> 
+> **Claude:** Got it. Let me read the properties via Notion MCP. I'll format the content with YAML frontmatter, create the branch you specified, and open a Pull Request for you.
+
+*(This repository serves as the actual CI/CD engine for my Agentic Headless CMS!)*
+
+
 
 ## 🏗 Workflow Overview
 
@@ -103,22 +109,5 @@ The workflow relies on two core MCP servers:
   MCP servers for GitHub in Claude Desktop are configured through the  `claude_desktop_config.json` file, with Docker installed on your machine.
   See details at https://github.com/github/github-mcp-server/blob/main/docs/installation-guides/install-claude.md
 
-### 3. Orchestration Prompts (The "Code")
-
-In this paradigm, prompts are the execution logic.
-
-* **Drafting:** *"Initialize a blog post about [Topic] in Notion. Set the Title and filename, then generate an outline in the page body."*
-* **Publishing:** *"Retrieve the edited content from Notion via MCP (filename: [filename]). Convert it to a Markdown file with YAML frontmatter, then create a Pull Request in this repository."*
-
-## 🚀 Key Benefits
-
-* **Zero Middleware Code**: No custom Python/Node.js scripts to maintain.
-* **Human-in-the-Loop**: Notion provides a world-class UI for human editors to refine AI-generated content before it hits production.
-* **Automated DevOps**: AI handles the Git branching, file transformation, and PR submission seamlessly.
-
-## 💎 Proof of Concept: Dogfooding
-
-The very article you are reading right now was orchestrated, formatted, and submitted to dev.to using this exact Notion-to-GitHub pipeline.
-*"The best proof of a system is using it to build itself."*
 
 *Created for the [Notion MCP Challenge](https://dev.to/challenges/notion-2026-03-04).*
