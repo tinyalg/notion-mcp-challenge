@@ -1,18 +1,15 @@
 name: Publish to Dev.to
 
 on:
-  pull_request:
-    types: [closed]
+  push:
     branches:
-#      - main
-      - test-workflow  # ← テスト用ブランチも追加
+      - main
     paths:
       - 'posts/**.md' # Trigger workflow when markdown files in the posts directory change
 
 jobs:
   publish:
     runs-on: ubuntu-latest
-    if: github.event.pull_request.merged == true
     permissions:
       contents: write # Required to commit the generated ID back to the repository
     
@@ -38,7 +35,6 @@ jobs:
           devto_api_key: ${{ secrets.DEVTO_API_KEY }}
           # Pass only the changed files (space-separated list) to your action
           file_path: ${{ steps.changed-files.outputs.all_changed_files }}
-          dry_run: 'true' # Enable dry run mode
 
       # Commit the updated files with newly assigned Dev.to IDs
       - name: Commit Article IDs
