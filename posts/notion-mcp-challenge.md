@@ -66,16 +66,25 @@ PR review ensures quality control while AI handles the tedious parts.
 
 **Manual sync when needed**: If you make quick fixes directly in GitHub (typos, formatting), you can manually copy-paste back to Notion when needed (Cmd+A, Cmd+C, Cmd+V). This is simpler and more reliable than automated bidirectional sync.
 
-### 6. Future Enhancements
+### 6. Automated Publishing (Already Implemented!)
+
+The system includes a GitHub Actions workflow that automatically publishes articles to dev.to when PRs are merged:
+
+- ✅ **Automatic publishing** - Merging to `test-workflow` branch triggers publication
+- ✅ **Article ID tracking** - Published article IDs are written back to the Markdown files
+- ✅ **Selective publishing** - Only changed files in `posts/` directory are processed
+- ✅ **Dry run mode** - Test the workflow before actual publication
+
+The complete pipeline: Write in Notion → Push to GitHub → Review PR → Merge → Auto-publish to dev.to
+
+### 7. Future Enhancements
 
 The architecture supports additional capabilities:
 
 **Planned Features**:
-- ✅ **dev.to integration** - After publishing, write back article URL and ID to Notion for tracking
 - ✅ **Analytics integration** - Pull view counts and reactions from dev.to back to Notion
 - ✅ **Multi-platform publishing** - Same workflow for Hashnode, Medium, Zenn, Qiita
 - ✅ **Content calendar** - Schedule publishing via Notion date properties
-- ✅ **Automated updates** - Detect Notion changes and create update PRs
 
 **Explicitly NOT doing**:
 - ❌ **GitHub → Notion auto-sync** - Adds complexity without real benefit. Manual copy-paste when needed is simpler and more reliable.
@@ -131,6 +140,7 @@ And now you can. Through conversation.
 2. **Zero Manual Configuration** - All schema updates done programmatically
 3. **Scalable Architecture** - Works for 1 article or 1,000 articles
 4. **No Code Required** - Users write zero JSON, zero API calls. The technical complexity exists but is completely abstracted away
+5. **End-to-End Conversation Loop** - Even the demo video was created by feeding the conversation artifacts (Markdown files from GitHub) into NotebookLM. The system's outputs become inputs for the next stage of automation. This complete loop demonstrates true conversation-driven workflow: write in Notion → push to GitHub → generate video → all through natural language interaction
 
 **Repository**: https://github.com/tinyalg/notion-mcp-challenge
 
