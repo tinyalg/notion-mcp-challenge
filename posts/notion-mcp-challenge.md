@@ -32,15 +32,15 @@ This isn't about replacing human judgment with AI. It's about **amplifying your 
 
 ### Key Features
 
-✅ **Schema Evolution via Conversation** - Added database fields (like `filename`) through natural language, no UI clicking required
+✅ **Conversation-Driven Draft Creation** - Start articles through natural conversation, which creates initial drafts in Notion
 
-✅ **Automated Git Workflow** - Branch creation, commits, and PR generation from Notion content
+✅ **Write & Edit in Notion** - Use Notion's rich editor to refine and polish your content with formatting, collaboration, and organization features
 
-✅ **Human-in-the-Loop Design** - You make all editorial decisions; automation just executes them
+✅ **Conversation-Driven Publishing** - Push to GitHub and create PRs through simple conversation, no Git commands required
 
-✅ **Bidirectional Tracking** - Notion properties link to GitHub files, enabling updates and republishing
+✅ **Human Review & Quality Control** - Review PRs to verify everything before it goes live
 
-✅ **Multi-Platform Ready** - The same pipeline can publish to dev.to, Hashnode, Medium, Zenn, or any platform with an API
+✅ **Automated Deployment** - Merge a PR to automatically publish to dev.to via GitHub Actions
 
 ## How I Used Notion MCP
 
