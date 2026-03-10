@@ -4,7 +4,7 @@ This is the exact repository where I approved my own submission for the Notion M
 
 Before hitting merge, the workflow started with this simple conversation:
 
-> **Me:**  Fetch and convert to markdown the draft with the `filename` "[posts/notion-mcp-challenge.md](http://notion-mcp-challenge.md/)" from the Notion database. Open a PR in tinyalg/notion-mcp-challenge repo, targeting `main`, using the branch name specified in its `github_branch` property.
+> **Me:**  Fetch and convert to markdown the draft with the `filename` "posts/notion-mcp-challenge.md" from the Notion database. Open a PR in tinyalg/notion-mcp-challenge repo, targeting `main`, using the branch name specified in its `github_branch` property.
 > 
 > You MUST properly escape all newlines with `\n`, double quotes with `\"`, and formatting when constructing the JSON payload for the tool. DO NOT pass raw markdown, and DO NOT use `\t` for newlines.
 >
