@@ -1,12 +1,12 @@
 ---
 id: 3332730
 title: "Zero-Friction Publishing: A Human-in-the-Loop Agentic CMS powered by Notion MCP"
-published: false
+published: true
 description: "Discover how to build a zero-friction, human-in-the-loop publishing pipeline. Turn Notion into an AI-powered Headless CMS using Notion MCP and GitHub."
 tags: devchallenge,notionchallenge,mcp,ai
 cover_image: https://dev-to-uploads.s3.amazonaws.com/uploads/articles/a7ppcd67msa51eymfg7q.jpg
-canonical_url: 
-organization_username: 
+canonical_url:
+organization_username:
 ---
 
 *This is a submission for the [Notion MCP Challenge](https://dev.to/challenges/notion-2026-03-04)*
@@ -37,8 +37,8 @@ Here is the architecture of the workflow we established:
 
 - **Director Phase (1):** I initiate the idea via natural language.
 - **Drafting Phase (2):** The AI orchestrator generates the initial draft and saves it directly to a structured Notion database (mapping properties like `title`, `filename`, and metadata) using Notion MCP.
-- **Refinement Phase (3, 4):** I jump into Notion—the best UI for writing—and refine the draft, adding my personal touch.
-- **Publishing Pipeline (5, 6):** I tell the AI to finalize it. It fetches the updated content from Notion via MCP, transforms it into Markdown with YAML frontmatter internally, and creates a Pull Request on GitHub.
+- **Refinement Phase (3):** I jump into Notion—the best UI for writing—and refine the draft, adding my personal touch.
+- **Publishing Pipeline (4-6):** I tell the AI to finalize it. It fetches the updated content from Notion via MCP, transforms it into Markdown with YAML frontmatter internally, and creates a Pull Request on GitHub.
 - **Approval (7-9):** I review the PR diff and hit merge, triggering GitHub Actions to deploy the article live to [dev.to](http://dev.to).
 
 ## Video Demo
@@ -82,14 +82,14 @@ This strict schema is the secret sauce that allows the AI to act predictably:
 - **`github_branch`**: Tells the AI which branch to target for the PR.
 - **`Content`**: (The page body) The shared canvas for AI generation and human editing.
 
-### 3. Overcoming the "Stringification Hell" (Forcing Self-Verification)
+**3. Overcoming the "Stringification Hell" (Forcing Self-Verification)**
 
 During testing, I hit a physical limit of current LLMs: the "Stringification Hell." When Claude tried to pass the final, complex Markdown (with YAML, Mermaid diagrams, and newlines) to the GitHub MCP, it struggled to perfectly escape the massive JSON payload. At one point, to avoid syntax errors, the AI even "cheated" by silently stripping out every single newline character—resulting in a completely flattened file!
 
 To solve this, I realized I needed to hold the AI accountable. Instead of relying on external scripts, I implemented a strict "Round-Trip Verification" rule in my prompt:
 
 > Fetch and convert to markdown the draft with the `filename` "posts/notion-mcp-challenge.md" from the Notion database. Open a PR in tinyalg/notion-mcp-challenge repo, targeting `main`, using the branch name specified in its `github_branch` property.
-> You MUST properly escape all newlines with`\n`, double quotes with `\"`, and formatting when constructing the JSON payload for the tool. DO NOT pass raw markdown, and DO NOT use `\t` for newlines.<br>Before executing the tool, you must decode the escaped string in your head back to Markdown and strictly verify that it is a 100% perfect match with the original draft. If you fail to escape it properly, the GitHub action will break. Do it perfectly.
+> You MUST properly escape all newlines with `\n`, double quotes with `\"`, and formatting when constructing the JSON payload for the tool. DO NOT pass raw markdown, and DO NOT use `\t` for newlines.<br>Before executing the tool, you must decode the escaped string in your head back to Markdown and strictly verify that it is a 100% perfect match with the original draft. If you fail to escape it properly, the GitHub action will break. Do it perfectly.
 
 ## How I Used Notion MCP
 
