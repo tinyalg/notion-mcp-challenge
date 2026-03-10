@@ -1,4 +1,5 @@
 ---
+id: 3332730
 title: "Zero-Friction Publishing: A Human-in-the-Loop Agentic CMS powered by Notion MCP"
 published: true
 description: "Discover how to build a zero-friction, human-in-the-loop publishing pipeline. Turn Notion into an AI-powered Headless CMS using Notion MCP and GitHub."
@@ -8,7 +9,7 @@ canonical_url:
 organization_username:
 ---
 
-*This is a submission for the [Notion MCP Challenge](https://dev.to/challenges/notion-2026-03-04)
+*This is a submission for the [Notion MCP Challenge](https://dev.to/challenges/notion-2026-03-04)*
 
 ## What I Built
 
