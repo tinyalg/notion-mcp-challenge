@@ -3,13 +3,13 @@ id: 3332730
 title: "Zero-Friction Publishing: A Human-in-the-Loop Agentic CMS powered by Notion MCP"
 published: false
 description: "Discover how to build a zero-friction, human-in-the-loop publishing pipeline. Turn Notion into an AI-powered Headless CMS using Notion MCP and GitHub."
-tags: ["devchallenge","notionchallenge","mcp","ai"]
-organization_username: ""
-canonical_url: ""
-cover_image: "https://dev-to-uploads.s3.amazonaws.com/uploads/articles/5lldnomk3p2s30rfymva.png"
+tags: devchallenge,notionchallenge,mcp,ai
+cover_image: https://dev-to-uploads.s3.amazonaws.com/uploads/articles/a7ppcd67msa51eymfg7q.jpg
+canonical_url: 
+organization_username: 
 ---
 
-*This is a submission for the [Notion MCP Challenge](https://dev.to/challenges/notion-2026-03-04)
+*This is a submission for the [Notion MCP Challenge](https://dev.to/challenges/notion-2026-03-04)*
 
 ## What I Built
 
@@ -31,9 +31,10 @@ Instead of juggling multiple tabs, manually converting formats, or dealing with 
 
 Here is the architecture of the workflow we established:
 
-![](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/7xs7zhw1ml1ayb4tdlnl.png)
+![](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/myjk532iz1j26edmm3uw.png)
 
 **The Process:**
+
 1. **Director Phase (1):** I initiate the idea via natural language.
 2. **Drafting Phase (2):** The AI orchestrator generates the initial draft and saves it directly to a structured Notion database (mapping properties like `title`, `filename`, and metadata) using Notion MCP.
 3. **Refinement Phase (3, 4):** I jump into Notion—the best UI for writing—and refine the draft, adding my personal touch.
@@ -74,7 +75,7 @@ This strict schema is the secret sauce that allows the AI to act predictably:
 - **`published`**: A boolean to control visibility.
 - **`description`**: Used for SEO and dev.to's summary.
 - **`tags`**: Automates categorization.
-- **`organization_username`**: Allows publishing under a specific [dev.to](http://dev.to) organization when GitHub workflow uses the [Publish to ](https://github.com/marketplace/actions/publish-to-dev-to-organization)[Dev.to](https://github.com/marketplace/actions/publish-to-dev-to-organization)[ Organization Action](https://github.com/marketplace/actions/publish-to-dev-to-organization).
+- **`organization_username`**: Allows publishing under a specific [dev.to](http://dev.to) organization when GitHub workflow uses the [Publish to Dev.to Organization Action](https://github.com/marketplace/actions/publish-to-dev-to-organization).
 - **`canonical_url`**: Maintains SEO integrity for cross-posted content.
 - **`cover_image`**: Managed via URL to handle article headers.
 - **`filename`**: The exact ID for the `.md` file in the GitHub repo.
@@ -88,7 +89,7 @@ During testing, I hit a physical limit of current LLMs: the "Stringification Hel
 To solve this, I realized I needed to hold the AI accountable. Instead of relying on external scripts, I implemented a strict "Round-Trip Verification" rule in my prompt:
 
 > Fetch and convert to markdown the draft with the `filename` "posts/notion-mcp-challenge.md" from the Notion database. Open a PR in tinyalg/notion-mcp-challenge repo, targeting `main`, using the branch name specified in its `github_branch` property.
-> 	You MUST properly escape all newlines (`\n`), double quotes (`\"`), and formatting when constructing the JSON payload for the tool. DO NOT pass raw markdown, and DO NOT use `\t` for newlines.<br>Before executing the tool, you must decode the escaped string in your head back to Markdown and strictly verify that it is a 100% perfect match with the original draft. If you fail to escape it properly, the GitHub action will break. Do it perfectly.
+> You MUST properly escape all newlines (`\n`), double quotes (`\"`), and formatting when constructing the JSON payload for the tool. DO NOT pass raw markdown, and DO NOT use `\t` for newlines.<br>Before executing the tool, you must decode the escaped string in your head back to Markdown and strictly verify that it is a 100% perfect match with the original draft. If you fail to escape it properly, the GitHub action will break. Do it perfectly.
 
 ## How I Used Notion MCP
 
