@@ -9,7 +9,7 @@ canonical_url:
 organization_username: 
 ---
 
-*This is a submission for the [Notion MCP Challenge](https://dev.to/challenges/notion-2026-03-04)
+*This is a submission for the [Notion MCP Challenge](https://dev.to/challenges/notion-2026-03-04)*
 
 ## What I Built
 
