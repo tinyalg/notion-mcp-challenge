@@ -6,8 +6,8 @@ Before hitting merge, the workflow started with this simple conversation:
 
 > **Me:**  Fetch and convert to markdown the draft with the `filename` "[posts/notion-mcp-challenge.md](http://notion-mcp-challenge.md/)" from the Notion database. Open a PR in tinyalg/notion-mcp-challenge repo, targeting `main`, using the branch name specified in its `github_branch` property.
 > 
-> 
-> You MUST properly escape all newlines (`\n`), double quotes (`\"`), and formatting when constructing the JSON payload for the tool. DO NOT pass raw markdown, and DO NOT use `\t` for newlines.
+> You MUST properly escape all newlines with `\n`, double quotes with `\"`, and formatting when constructing the JSON payload for the tool. DO NOT pass raw markdown, and DO NOT use `\t` for newlines.
+>
 > Before executing the tool, you must decode the escaped string in your head back to Markdown and strictly verify that it is a 100% perfect match with the original draft. If you fail to escape it properly, the GitHub action will break. Do it perfectly.
 > 
 > **Claude:** Got it. Let me read the properties via Notion MCP. I'll format the content with YAML frontmatter, create the branch you specified, and open a Pull Request for you.
