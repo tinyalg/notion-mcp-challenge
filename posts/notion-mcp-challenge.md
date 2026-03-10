@@ -9,7 +9,7 @@ canonical_url:
 organization_username: 
 ---
 
-*This is a submission for the [Notion MCP Challenge](https://dev.to/challenges/notion-2026-03-04)*
+*This is a submission for the [Notion MCP Challenge](https://dev.to/challenges/notion-2026-03-04)
 
 ## What I Built
 
@@ -31,21 +31,21 @@ Instead of juggling multiple tabs, manually converting formats, or dealing with 
 
 Here is the architecture of the workflow we established:
 
-![](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/myjk532iz1j26edmm3uw.png)
+![Workflow Overview](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/myjk532iz1j26edmm3uw.png)
 
 **The Process:**
 
-1. **Director Phase (1):** I initiate the idea via natural language.
-2. **Drafting Phase (2):** The AI orchestrator generates the initial draft and saves it directly to a structured Notion database (mapping properties like `title`, `filename`, and metadata) using Notion MCP.
-3. **Refinement Phase (3, 4):** I jump into Notion—the best UI for writing—and refine the draft, adding my personal touch.
-4. **Publishing Pipeline (5, 6):** I tell the AI to finalize it. It fetches the updated content from Notion via MCP, transforms it into Markdown with YAML frontmatter internally, and creates a Pull Request on GitHub.
-5. **Approval (7-9):** I review the PR diff and hit merge, triggering GitHub Actions to deploy the article live to [dev.to](http://dev.to).
+- **Director Phase (1):** I initiate the idea via natural language.
+- **Drafting Phase (2):** The AI orchestrator generates the initial draft and saves it directly to a structured Notion database (mapping properties like `title`, `filename`, and metadata) using Notion MCP.
+- **Refinement Phase (3, 4):** I jump into Notion—the best UI for writing—and refine the draft, adding my personal touch.
+- **Publishing Pipeline (5, 6):** I tell the AI to finalize it. It fetches the updated content from Notion via MCP, transforms it into Markdown with YAML frontmatter internally, and creates a Pull Request on GitHub.
+- **Approval (7-9):** I review the PR diff and hit merge, triggering GitHub Actions to deploy the article live to [dev.to](http://dev.to).
 
 ## Video Demo
 
 {% youtube xAelmJ6MLMs %}
 
-This short presentation (generated via NotebookLM based on my initial drafts) explains the philosophy behind this setup. As highlighted in the video, this is **Conversation-driven development**. You will see how I can orchestrate a complex Notion-to-GitHub pipeline without writing a single line of traditional code—relying entirely on the system architecture (the Mermaid diagram) and natural language prompts.
+This short presentation (generated via NotebookLM based on my initial drafts) explains the philosophy behind this setup. As highlighted in the video, this is **Conversation-driven development**. You will see how I can orchestrate a complex Notion-to-GitHub pipeline without writing a single line of traditional code—relying entirely on the Workflow Overview and natural language prompts.
 
 ## Show us the code
 
@@ -89,7 +89,7 @@ During testing, I hit a physical limit of current LLMs: the "Stringification Hel
 To solve this, I realized I needed to hold the AI accountable. Instead of relying on external scripts, I implemented a strict "Round-Trip Verification" rule in my prompt:
 
 > Fetch and convert to markdown the draft with the `filename` "posts/notion-mcp-challenge.md" from the Notion database. Open a PR in tinyalg/notion-mcp-challenge repo, targeting `main`, using the branch name specified in its `github_branch` property.
-> You MUST properly escape all newlines (`\n`), double quotes (`\"`), and formatting when constructing the JSON payload for the tool. DO NOT pass raw markdown, and DO NOT use `\t` for newlines.<br>Before executing the tool, you must decode the escaped string in your head back to Markdown and strictly verify that it is a 100% perfect match with the original draft. If you fail to escape it properly, the GitHub action will break. Do it perfectly.
+> You MUST properly escape all newlines with`\n`, double quotes with `\"`, and formatting when constructing the JSON payload for the tool. DO NOT pass raw markdown, and DO NOT use `\t` for newlines.<br>Before executing the tool, you must decode the escaped string in your head back to Markdown and strictly verify that it is a 100% perfect match with the original draft. If you fail to escape it properly, the GitHub action will break. Do it perfectly.
 
 ## How I Used Notion MCP
 
