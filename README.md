@@ -12,6 +12,15 @@ Before hitting merge, the workflow started with this simple conversation:
 > 
 > **Claude:** Got it. Let me read the properties via Notion MCP. I'll format the content with YAML frontmatter, create the branch you specified, and open a Pull Request for you.
 
+### ⏱️ The 18-Minute "Stringification Hell" Log
+
+Curious how the AI reacted to the strict "Zero-Error" prompt above? 
+
+It took Claude exactly **18 minutes of internal reasoning and mental round-trip verification** to perfectly escape the Notion draft into a JSON payload without breaking the GitHub Action. 
+
+You can read the raw, unedited thought process of the AI agent here:
+👉 **[Read the 18_MINUTES_LOG_FOR_GOLIVE.md](./18_MINUTES_LOG_FOR_GOLIVE.md)**
+
 ## 🏗 Workflow Overview
 
 This diagram shows the overview of the workflow I presented. It defines the interaction between the AI Orchestrator (Claude), the Human Director, and the external systems.
@@ -84,5 +93,15 @@ The workflow relies on two core MCP servers:
   MCP servers for GitHub in Claude Desktop are configured through the  `claude_desktop_config.json` file, with Docker installed on your machine.
   See details at https://github.com/github/github-mcp-server/blob/main/docs/installation-guides/install-claude.md
 
+
+### Security Tips: Limiting the Blast Radius
+
+Don't want Claude to accidentally mess things up? Create a **machine user account**, as permitted in [Types of GitHub Accounts](https://docs.github.com/en/get-started/learning-about-github/types-of-github-accounts). 
+
+*(You may have noticed `talgina` authoring the PRs in this repository—that's my dedicated machine account!)*
+
+When creating a Fine-grained PAT (Personal Access Token) to paste into your `claude_desktop_config.json` file, be sure to **restrict its scope strictly to the target repository** with only the following permissions:
+- **Contents:** Read and Write
+- **Pull requests:** Read and Write
 
 *Created for the [Notion MCP Challenge](https://dev.to/challenges/notion-2026-03-04).*
