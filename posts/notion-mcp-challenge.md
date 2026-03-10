@@ -31,14 +31,14 @@ Instead of juggling multiple tabs, manually converting formats, or dealing with 
 
 Here is the architecture of the workflow we established:
 
-![Workflow Overview](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/3jab950a9d31kvn8jws2.png)
+![](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/7xs7zhw1ml1ayb4tdlnl.png)
 
 **The Process:**
-1. **Director Phase:** I initiate the idea via natural language.
-2. **Drafting Phase:** The AI orchestrator generates the initial draft and saves it directly to a structured Notion database (mapping properties like `title`, `filename`, and metadata) using Notion MCP.
-3. **Refinement Phase (Human-in-the-loop):** I jump into Notion—the best UI for writing—and refine the draft, adding my personal touch.
-4. **Publishing Pipeline:** I tell the AI to finalize it. It fetches the updated content from Notion via MCP, transforms it into Markdown with YAML frontmatter internally, and creates a Pull Request on GitHub.
-5. **Approval:** I review the PR diff and hit merge, triggering GitHub Actions to deploy the article live to [dev.to](http://dev.to).
+1. **Director Phase (1):** I initiate the idea via natural language.
+2. **Drafting Phase (2):** The AI orchestrator generates the initial draft and saves it directly to a structured Notion database (mapping properties like `title`, `filename`, and metadata) using Notion MCP.
+3. **Refinement Phase (3, 4):** I jump into Notion—the best UI for writing—and refine the draft, adding my personal touch.
+4. **Publishing Pipeline (5, 6):** I tell the AI to finalize it. It fetches the updated content from Notion via MCP, transforms it into Markdown with YAML frontmatter internally, and creates a Pull Request on GitHub.
+5. **Approval (7-9):** I review the PR diff and hit merge, triggering GitHub Actions to deploy the article live to [dev.to](http://dev.to).
 
 ## Video Demo
 
@@ -81,18 +81,14 @@ This strict schema is the secret sauce that allows the AI to act predictably:
 - **`github_branch`**: Tells the AI which branch to target for the PR.
 - **`Content`**: (The page body) The shared canvas for AI generation and human editing.
 
-### 3. The AI's Toolkit (Overcoming the JSON Escape Hell)
+### 3. Overcoming the "Stringification Hell" (Forcing Self-Verification)
 
 During testing, I hit a physical limit of current LLMs: the "Stringification Hell." When Claude tried to pass the final, complex Markdown (with YAML, Mermaid diagrams, and newlines) to the GitHub MCP, it struggled to perfectly escape the massive JSON payload. At one point, to avoid syntax errors, the AI even "cheated" by silently stripping out every single newline character—resulting in a completely flattened file!
 
-To solve this without breaking the "Zero-Friction" philosophy, I added a simple, deterministic Python script ([`escape_mcp_payload.py`](https://github.com/tinyalg/notion-mcp-challenge/blob/main/escape-mcp-payload.py)) directly into the repository.
+To solve this, I realized I needed to hold the AI accountable. Instead of relying on external scripts, I implemented a strict "Round-Trip Verification" rule in my prompt:
 
-Now, instead of wrestling with prompt engineering for JSON escaping, my natural language instruction is simply:
-
-> Fetch and convert to markdown the draft with the `filename` "posts/notion-mcp-challenge.md" from the Notion database. Update a PR targeting `main`, using the branch name specified in its `github_branch` property.
+> Fetch and convert to markdown the draft with the `filename` "posts/notion-mcp-challenge.md" from the Notion database. Open a PR in tinyalg/notion-mcp-challenge repo, targeting `main`, using the branch name specified in its `github_branch` property.
 > 	You MUST properly escape all newlines (`\n`), double quotes (`\"`), and formatting when constructing the JSON payload for the tool. DO NOT pass raw markdown, and DO NOT use `\t` for newlines.<br>Before executing the tool, you must decode the escaped string in your head back to Markdown and strictly verify that it is a 100% perfect match with the original draft. If you fail to escape it properly, the GitHub action will break. Do it perfectly.
-
-This is a paradigm shift: **The repository is no longer just a storage space; it is a literal toolbox.** By committing utility scripts to the repo, the AI agent can autonomously fetch and execute the deterministic tools it needs to overcome its own probabilistic limitations!
 
 ## How I Used Notion MCP
 
