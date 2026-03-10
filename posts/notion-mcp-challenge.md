@@ -74,7 +74,7 @@ This strict schema is the secret sauce that allows the AI to act predictably:
 - **`published`**: A boolean to control visibility.
 - **`description`**: Used for SEO and dev.to's summary.
 - **`tags`**: Automates categorization.
-- **`organization_username`**: Allows publishing under a specific [dev.to](http://dev.to) organization when GitHub workflow uses the [Publish to Dev.to Organization Action](https://github.com/marketplace/actions/publish-to-dev-to-organization).
+- **`organization_username`**: Allows publishing under a specific [dev.to](http://dev.to) organization when GitHub workflow uses the [Publish to ](https://github.com/marketplace/actions/publish-to-dev-to-organization)[Dev.to](https://github.com/marketplace/actions/publish-to-dev-to-organization)[ Organization Action](https://github.com/marketplace/actions/publish-to-dev-to-organization).
 - **`canonical_url`**: Maintains SEO integrity for cross-posted content.
 - **`cover_image`**: Managed via URL to handle article headers.
 - **`filename`**: The exact ID for the `.md` file in the GitHub repo.
@@ -89,7 +89,8 @@ To solve this without breaking the "Zero-Friction" philosophy, I added a simple,
 
 Now, instead of wrestling with prompt engineering for JSON escaping, my natural language instruction is simply:
 
-> Fetch and convert to markdown the draft with the `filename` "notion-mcp-challenge.md" from the Notion database. Then, feed the markdown to the python script `escape_mcp_payload.py` and use the OUTPUT FROM THE SCRIPT for generating the JSON payload. Finally, create a PR targeting `main`, using the branch name specified in its `github_branch` property.
+> Fetch and convert to markdown the draft with the `filename` "posts/notion-mcp-challenge.md" from the Notion database. Update a PR targeting `main`, using the branch name specified in its `github_branch` property.
+> 	You MUST properly escape all newlines (`\n`), double quotes (`\"`), and formatting when constructing the JSON payload for the tool. DO NOT pass raw markdown, and DO NOT use `\t` for newlines.<br>Before executing the tool, you must decode the escaped string in your head back to Markdown and strictly verify that it is a 100% perfect match with the original draft. If you fail to escape it properly, the GitHub action will break. Do it perfectly.
 
 This is a paradigm shift: **The repository is no longer just a storage space; it is a literal toolbox.** By committing utility scripts to the repo, the AI agent can autonomously fetch and execute the deterministic tools it needs to overcome its own probabilistic limitations!
 
