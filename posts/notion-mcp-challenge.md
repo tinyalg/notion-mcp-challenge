@@ -71,6 +71,10 @@ This strict schema is the secret sauce that allows the AI to act predictably:
 
 ![Notion Schema](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/ja6ct9klj4y5xx9ovoyo.png)
 
+> 💡 Zero-Friction Setup: Skip the manual setup!<br>[**Duplicate this Notion Template**](https://ninth-shop-8d7.notion.site/Zero-Friction-CMS-Template-31fa41fc2e0380cd837ef2436efcb8d9?source=copy_link) to instantly get the exact database schema required for the AI to generate perfect YAML frontmatter.
+
+**Notion Schema Properties:**
+
 - **`title`**: The main headline of your post.
 - **`published`**: A boolean to control visibility.
 - **`description`**: Used for SEO and dev.to's summary.
@@ -90,6 +94,8 @@ To solve this, I realized I needed to hold the AI accountable. Instead of relyin
 
 > Fetch and convert to markdown the draft with the `filename` "posts/notion-mcp-challenge.md" from the Notion database. Open a PR in tinyalg/notion-mcp-challenge repo, targeting `main`, using the branch name specified in its `github_branch` property.
 > You MUST properly escape all newlines with `\n`, double quotes with `\"`, and formatting when constructing the JSON payload for the tool. DO NOT pass raw markdown, and DO NOT use `\t` for newlines.<br>Before executing the tool, you must decode the escaped string in your head back to Markdown and strictly verify that it is a 100% perfect match with the original draft. If you fail to escape it properly, the GitHub action will break. Do it perfectly.
+
+*(Curious why this prompt is so strict? See [18 Minutes of Reasoning: The "Stringification Hell"](https://github.com/tinyalg/notion-mcp-challenge/blob/main/18_MINUTES_LOG_FOR_GOLIVE.md) behind the scenes.)*
 
 ## How I Used Notion MCP
 
