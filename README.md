@@ -1,6 +1,6 @@
 # Zero-Friction Publishing: A Human-in-the-Loop Agentic CMS powered by Notion MCP
 
-This is the exact repository where I approved my own submission for the Notion MCP Challenge, triggering a GitHub Actions workflow that automatically published it to dev.to. 
+This is the exact repository where I, @lwgena, approved my own submission for the Notion MCP Challenge, triggering a GitHub Actions workflow that automatically published it to dev.to. (You may notice another contributor named @talgina here, which is my dedicated machine account.) 
 
 Before hitting merge, the workflow started with this simple conversation:
 
@@ -106,8 +106,6 @@ The easiest way to achieve this is by using the **[Publish to Dev.to Organizatio
 ## Security Tips: Limiting the Blast Radius
 
 Don't want Claude to accidentally mess things up? Create a **machine user account**, as permitted in [Types of GitHub Accounts](https://docs.github.com/en/get-started/learning-about-github/types-of-github-accounts). 
-
-*(You may have noticed `talgina` authoring the PRs in this repository—that's my dedicated machine account!)*
 
 When creating a Fine-grained PAT (Personal Access Token) to paste into your `claude_desktop_config.json` file, be sure to **restrict its scope strictly to the target repository** with only the following permissions:
 - **Contents:** Read and Write
