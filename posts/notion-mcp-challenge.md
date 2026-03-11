@@ -6,6 +6,7 @@ description: "Discover how to build a zero-friction, human-in-the-loop publishin
 tags: devchallenge,notionchallenge,mcp,ai
 cover_image: https://dev-to-uploads.s3.amazonaws.com/uploads/articles/a7ppcd67msa51eymfg7q.jpg
 canonical_url:
+organization_username:
 ---
 
 *This is a submission for the [Notion MCP Challenge](https://dev.to/challenges/notion-2026-03-04)*
