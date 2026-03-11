@@ -63,6 +63,8 @@ graph TD
 
 ## 🛠 Setup & Configuration
 
+Getting started with Zero-Friction CMS is simple. Just set up your Notion schema, configure MCP on Claude Desktop, and add a GitHub Actions workflow. Here is the breakdown:
+
 ### 1. Notion Schema
 
 The AI orchestrator relies on this specific schema to manage the publishing lifecycle. 
@@ -75,7 +77,7 @@ To make the AI orchestrator act predictably, I defined a strict schema in the No
 * **published**: A boolean to control visibility.
 * **description**: Used for SEO and dev.to's summary.
 * **tags**: Automates categorization.
-* **organization_username**: Allows publishing under a specific dev.to organization when GitHub workflow uses the [Publish to Dev.to Organization Action](https://github.com/marketplace/actions/publish-to-dev-to-organization).
+* **organization_username**: Allows publishing under a specific dev.to organization when GitHub workflow uses the [Publish to Dev.to Organization](https://github.com/marketplace/actions/publish-to-dev-to-organization) action.
 * **canonical_url**: Maintains SEO integrity for cross-posted content.
 * **cover_image**: Managed via URL to handle article headers.
 * **filename**: The exact ID for the `.md` file in the GitHub repo.
@@ -95,8 +97,13 @@ The workflow relies on two core MCP servers:
   MCP servers for GitHub in Claude Desktop are configured through the  `claude_desktop_config.json` file, with Docker installed on your machine.
   See details at https://github.com/github/github-mcp-server/blob/main/docs/installation-guides/install-claude.md
 
+### 3. Publish to dev.to
 
-### Security Tips: Limiting the Blast Radius
+To automate posting to dev.to, you can use a GitHub Actions workflow. You can set up the workflow to automatically publish your articles to dev.to whenever a PR is merged into your main branch. 
+
+The easiest way to achieve this is by using the **[Publish to Dev.to Organization](https://github.com/marketplace/actions/publish-to-dev-to-organization)** action. Please refer to the GitHub Marketplace for detailed setup instructions.
+
+## Security Tips: Limiting the Blast Radius
 
 Don't want Claude to accidentally mess things up? Create a **machine user account**, as permitted in [Types of GitHub Accounts](https://docs.github.com/en/get-started/learning-about-github/types-of-github-accounts). 
 
