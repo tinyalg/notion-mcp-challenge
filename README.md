@@ -67,7 +67,7 @@ graph TD
 
 The AI orchestrator relies on this specific schema to manage the publishing lifecycle. 
 
-![Notion Database Schema](notion-database-schema.png)
+![Notion Database Schema](images/notion-database-schema.png)
 
 To make the AI orchestrator act predictably, I defined a strict schema in the Notion Database:
 
@@ -80,6 +80,8 @@ To make the AI orchestrator act predictably, I defined a strict schema in the No
 * **cover_image**: Managed via URL to handle article headers.
 * **filename**: The exact ID for the `.md` file in the GitHub repo.
 * **github_branch**: Tells the AI which branch to target for the PR.
+
+[Duplicate this Notion Template](https://ninth-shop-8d7.notion.site/Zero-Friction-CMS-Template-31fa41fc2e0380cd837ef2436efcb8d9?source=copy_link) to instantly get the exact database schema required for the AI to generate perfect YAML frontmatter.
 
 ### 2. MCP Integration
 
