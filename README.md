@@ -101,7 +101,7 @@ To automate posting to dev.to, you can use a GitHub Actions workflow. You can se
 
 The easiest way to achieve this is by using the **[Publish to Dev.to Organization](https://github.com/marketplace/actions/publish-to-dev-to-organization)** action. Please refer to the GitHub Marketplace for detailed setup instructions.
 
-### Security Tips: Limiting the Blast Radius
+## Security Tips: Limiting the Blast Radius
 
 Don't want Claude to accidentally mess things up? Create a **machine user account**, as permitted in [Types of GitHub Accounts](https://docs.github.com/en/get-started/learning-about-github/types-of-github-accounts). 
 
