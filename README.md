@@ -63,6 +63,8 @@ graph TD
 
 ## 🛠 Setup & Configuration
 
+Getting started with Zero-Friction CMS is simple. Just set up your Notion schema, configure MCP on Claude Desktop, and add a GitHub Actions workflow. Here is the breakdown:
+
 ### 1. Notion Schema
 
 The AI orchestrator relies on this specific schema to manage the publishing lifecycle. 
